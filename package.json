@@ -1,0 +1,28 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc && npm run sentry:sourcemaps",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "rebuild": "docker compose down && docker compose up --build  -d",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org lalala-pt --project node ./dist && sentry-cli sourcemaps upload --org lalala-pt --project node ./dist"
+  },
+  "dependencies": {
+    "@sentry/cli": "^2.58.4",
+    "@sentry/node": "^10.32.1",
+    "discord.js": "^14.25.1",
+    "dotenv": "^16.6.1",
+    "winston": "^3.19.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}

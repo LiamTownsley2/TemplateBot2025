@@ -1,0 +1,34 @@
+import { Client, ClientEvents, ClientOptions, Collection, GatewayIntentBits } from 'discord.js';
+import { Command } from './interfaces/Command/Command';
+import { Event } from './interfaces/Event';
+import { CommandHandler } from '../handlers/CommandHandler';
+import { EventHandler } from '../handlers/EventHandler';
+import { LogHandler } from '../handlers/LogHandler';
+import * as Sentry from "@sentry/node"
+
+export class ExtendedClient extends Client {
+  public commands: Collection<string, Command>;
+  public events: Collection<string, Event<keyof ClientEvents>>;
+  public commandHandler: CommandHandler;
+  public eventHandler: EventHandler;
+  public logHandler: LogHandler;
+  public database: any;
+  public config: any;
+
+  constructor(directories: { command: string, event: string }) {
+    super({
+      intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+      ],
+    });
+    this.commands = new Collection<string, Command>();
+    this.events = new Collection<string, Event<keyof ClientEvents>>();
+    this.commandHandler = new CommandHandler(this, directories.command);
+    this.eventHandler = new EventHandler(this, directories.event);
+    this.logHandler = new LogHandler();
+    this.database = {};
+    this.config = {};
+  }
+}

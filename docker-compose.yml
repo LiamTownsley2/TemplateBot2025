@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: discord-bot-ts
+    restart: unless-stopped
+    env_file:
+      - .env
+    # Only persist data if you have a /data folder for DB, logs, etc.
+    volumes:
+      - ./data:/app/data
+    # REMOVE these lines entirely:
+    # - .:/app/src
+    # - ./dist:/app/dist

@@ -1,6 +1,6 @@
 import path from 'path';
 import { ExtendedClient } from './types/ExtendedClient';
-import "./utils/SentryInstrument";
+import "./utils/Sentry";
 
 const client: ExtendedClient = new ExtendedClient({
     command: path.join(__dirname, 'commands'),

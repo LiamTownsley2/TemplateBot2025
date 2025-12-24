@@ -13,7 +13,7 @@ export default class PingCommand extends SlashCommand {
     }
 
     async execute(interaction: ChatInputCommandInteraction): Promise<void> {
-        console.log(`Ping command executed by ${interaction.user.tag} in guild ${interaction.guild?.name}`);
+        console.log(`Ping command executed by ${interaction.user?.tag || interaction.user?.displayName} in guild ${interaction.guild?.name}`);
         const latency = this.client.ws.ping;
         await interaction.reply(`Pong! Latency: ${latency}ms`);
     }

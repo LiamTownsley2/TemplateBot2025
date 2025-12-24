@@ -3,8 +3,8 @@ import { Command } from './interfaces/Command/Command';
 import { Event } from './interfaces/Event';
 import { CommandHandler } from '../handlers/CommandHandler';
 import { EventHandler } from '../handlers/EventHandler';
-import { LogHandler } from '../handlers/LogHandler';
 import * as Sentry from "@sentry/node"
+import { LogHandler } from '../handlers/LogHandler';
 
 export class ExtendedClient extends Client {
   public commands: Collection<string, Command>;
@@ -27,7 +27,7 @@ export class ExtendedClient extends Client {
     this.events = new Collection<string, Event<keyof ClientEvents>>();
     this.commandHandler = new CommandHandler(this, directories.command);
     this.eventHandler = new EventHandler(this, directories.event);
-    this.logHandler = new LogHandler();
+    this.logHandler = LogHandler.getInstance();
     this.database = {};
     this.config = {};
   }

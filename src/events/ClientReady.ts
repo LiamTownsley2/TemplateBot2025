@@ -2,6 +2,7 @@ import { ClientEvents } from 'discord.js';
 import { Event } from '../types/interfaces/Event';
 import { ExtendedClient } from '../types/ExtendedClient';
 import { CommandsDeployer } from '../deploy/CommandsDeployer';
+import { logger } from '../handlers/LogHandler';
 
 export default class ReadyEvent extends Event<'clientReady'> {
     name = 'clientReady' as const;
@@ -12,12 +13,13 @@ export default class ReadyEvent extends Event<'clientReady'> {
     }
 
     handle(): void {
-        console.log(`✅ Client is ready:`, this.client.user?.tag);
+        logger.info('✅ Application started', { signed_in_user: this.client.user?.tag, bot_version: require('../../package.json').version || 'unknown' });
+        logger.debug('ℹ️ Checking if Deploy_Commands is enabled', { DEPLOY_COMMANDS: process.env.DEPLOY_COMMANDS });
         if (process.env.DEPLOY_COMMANDS === 'true') {
             new CommandsDeployer(this.client).deploy(process.env.TEST_GUILD_ID!).then(() => {
-                console.log('✅ Global slash commands deployed successfully.');
+                logger.info('✅ Global slash commands deployed successfully.');
             }).catch((error: any) => {
-                console.error('❌ Error deploying global slash commands:', error);
+                logger.error('❌ Error deploying global slash commands:', { error });
             });
         }
     }

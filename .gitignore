@@ -3,3 +3,7 @@ node_modules
 data/
 # Sentry Config File
 .sentryclirc
+
+/generated/prisma
+logs/
+dist/

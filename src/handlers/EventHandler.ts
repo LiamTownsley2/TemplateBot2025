@@ -5,6 +5,7 @@ import { ClientEvents } from 'discord.js';
 import { Event } from '../types/interfaces/Event';
 import { ExtendedClient } from '../types/ExtendedClient';
 import { readdir } from 'fs/promises';
+import { logger } from './LogHandler';
 
 export class EventHandler {
     private client: ExtendedClient;
@@ -17,7 +18,7 @@ export class EventHandler {
     }
 
     public async load(): Promise<void> {
-        console.log('📥 Loading Events');
+        logger.info('📥 Loading Events');
         const eventFiles = (await readdir(this.directory)).filter(file => (file.endsWith('.ts') || file.endsWith('.js')) && file !== 'base.ts');
 
         let loadedCount = 0;
@@ -33,9 +34,9 @@ export class EventHandler {
                 this.client.on(event.name, (...args) => event.handle(...args));
             }
 
-            console.info(`\tℹ️ Loaded ${event.name} ${event.once ? '(once)' : '(on)'} event.`);
+            logger.info(`\tℹ️ Loaded event.`, { name: event.name, once: event.once });
             loadedCount++;
         }
-        console.log('✅ Events Loaded:', loadedCount);
+        logger.info('✅ Events Loaded:', { count: loadedCount });
     }
 }

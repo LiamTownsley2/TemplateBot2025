@@ -5,6 +5,7 @@ import { SlashCommand } from '../types/interfaces/Command/SlashCommand';
 import { CommandType } from '../types/interfaces/Command/Command';
 import * as Sentry from "@sentry/node"
 import "../utils/Sentry";
+import { logger } from '../handlers/LogHandler';
 
 export default class InteractionCreateEvent extends Event<'interactionCreate'> {
     public name = 'interactionCreate' as const;
@@ -18,14 +19,14 @@ export default class InteractionCreateEvent extends Event<'interactionCreate'> {
     public async handle(interaction: Interaction) {
         if (!interaction.isChatInputCommand()) return;
 
-        const command = this.client.commands.filter(x => x.type == CommandType.Slash).get(interaction.commandName);
+        const command = this.client.commands.filter(x => x.type == CommandType.Slash).get(interaction.commandName) as SlashCommand;
         if (!command) return;
 
         try {
-            await (command as SlashCommand).execute(interaction);
-            Sentry.metrics.count('command_executed', 1);
+            await command.execute(interaction);
+            logger.commandExecuted();
         } catch (error) {
-            console.error(error);
+            logger.errorCommand(command.data.name, interaction.user.id, error as Error, { interactionId: interaction.id });
             const reply = { content: `There was an error executing this command!\n${codeBlock(error as string)}`, ephemeral: true };
             if (interaction.replied || interaction.deferred) {
                 await interaction.followUp(reply);

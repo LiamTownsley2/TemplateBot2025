@@ -6,6 +6,7 @@ import { readdir } from 'fs/promises';
 import { Command, CommandType } from '../types/interfaces/Command/Command';
 import { SlashCommand } from '../types/interfaces/Command/SlashCommand';
 import { TextCommand } from '../types/interfaces/Command/TextCommand';
+import { logger } from './LogHandler';
 
 export class CommandHandler {
     private readonly client: ExtendedClient;
@@ -18,7 +19,7 @@ export class CommandHandler {
     }
 
     public async load() {
-        console.log('📥 Loading Commands');
+        logger.info('📥 Loading Commands');
 
         let loadedCount = 0;
         const commandFiles = (await readdir(this.directory)).filter(file => (file.endsWith('.ts') || file.endsWith('.js')) && file !== 'base.ts');
@@ -42,8 +43,8 @@ export class CommandHandler {
             this.client.commands.set(commandName, command);
 
             loadedCount++;
-            console.info(`\tℹ️ Loaded command: ${commandName || 'Unnamed Command'}`);
+            logger.info(`\tℹ️ Loaded command.`, { name: commandName });
         }
-        console.log('✅ Commands Loaded:', loadedCount);
+        logger.info('✅ Commands Loaded:', { count: loadedCount });
     }
 }

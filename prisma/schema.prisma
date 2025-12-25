@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/prisma/client/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+model users {
+  id             BigInt   @id
+  username       String
+  global_name    String?
+  avatar         String?
+  banner         String?
+  accent_color   Int?
+  created_at     DateTime @db.Timestamptz(6)
+}

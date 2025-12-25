@@ -1,10 +1,9 @@
-import { Client, ClientEvents, ClientOptions, Collection, GatewayIntentBits } from 'discord.js';
+import { Client, ClientEvents, Collection, GatewayIntentBits } from 'discord.js';
 import { Command } from './interfaces/Command/Command';
 import { Event } from './interfaces/Event';
 import { CommandHandler } from '../handlers/CommandHandler';
 import { EventHandler } from '../handlers/EventHandler';
-import * as Sentry from "@sentry/node"
-import { LogHandler } from '../handlers/LogHandler';
+import { logger, LogHandler } from '../handlers/LogHandler';
 
 export class ExtendedClient extends Client {
   public commands: Collection<string, Command>;
@@ -30,5 +29,9 @@ export class ExtendedClient extends Client {
     this.logHandler = LogHandler.getInstance();
     this.database = {};
     this.config = {};
+
+    this.on('error', (error) => logger.error('Client Error:', { error }));
+    this.on('warn', (info) => logger.warn('Client Warning:', { info }));
+    this.on('debug', (info) => logger.debug('Client Debug:', { info }));
   }
 }

@@ -7,6 +7,7 @@ import {
 import { ExtendedClient } from '../types/ExtendedClient';
 import { CommandType } from '../types/interfaces/Command/Command';
 import { SlashCommand } from '../types/interfaces/Command/SlashCommand';
+import { logger } from '@sentry/node';
 
 export class CommandsDeployer {
     private readonly client: ExtendedClient;
@@ -23,7 +24,7 @@ export class CommandsDeployer {
      */
     public async deploy(guildId?: string): Promise<void> {
         if (!this.client.commands || this.client.commands.size === 0) {
-            console.warn('⚠️ No commands loaded yet. Skipping deployment.');
+            logger.warn(`Error whilst deploying slash commands:`, { error: "No Commands loaded. Skipping Deployment." });
             return;
         }
 
@@ -36,22 +37,22 @@ export class CommandsDeployer {
                 currentCommands = (await this.rest.get(
                     Routes.applicationGuildCommands(this.client.user!.id, guildId)
                 )) as RESTPostAPIApplicationCommandsJSONBody[];
-                console.log(`🔍 Fetched ${currentCommands.length} guild commands.`);
+                logger.info(`🔍 Fetched guild commands.`, { amount: currentCommands.length });
             } else {
                 currentCommands = (await this.rest.get(
                     Routes.applicationCommands(this.client.user!.id)
                 )) as RESTPostAPIApplicationCommandsJSONBody[];
-                console.log(`🔍 Fetched ${currentCommands.length} global commands.`);
+                logger.info(`🔍 Fetched global commands.`, { amount: currentCommands.length });
             }
 
             const hasChanges = this.hasCommandsChanged(localCommands, currentCommands);
 
             if (!hasChanges) {
-                console.log('✅ Commands are up to date. No deployment needed.');
+                logger.info('✅ Commands are up to date. No deployment needed.');
                 return;
             }
 
-            console.log('🔄 Changes detected. Deploying commands...');
+            logger.info('🔄 Changes detected. Deploying commands...');
 
             const route = guildId
                 ? Routes.applicationGuildCommands(this.client.user!.id, guildId)
@@ -59,9 +60,9 @@ export class CommandsDeployer {
 
             await this.rest.put(route, { body: localCommands });
 
-            console.log(`🚀 Successfully deployed ${localCommands.length} commands ${guildId ? `to guild ${guildId}` : 'globally'}.`);
+            logger.info(`🚀 Successfully deployed commands.`, { amount: localCommands.length, guild_id: guildId || 'global' });
         } catch (error) {
-            console.error('❌ Failed to deploy commands:', error);
+            logger.error('❌ Failed to deploy commands:', { error });
         }
     }
 

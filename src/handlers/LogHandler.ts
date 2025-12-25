@@ -1,8 +1,11 @@
 import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
-import SentryTransport from 'winston-transport-sentry-node';
 import * as Sentry from "@sentry/node"
 import "../utils/Sentry";
+import application_json from '../../package.json';
+import os from 'os';
+import { ChatInputCommandInteraction } from 'discord.js';
+import Transport from 'winston-transport';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -27,14 +30,24 @@ export class LogHandler {
             )
         );
 
+        const SentryTransport = Sentry.createSentryWinstonTransport(Transport, {
+            levels: ['error', 'warn', 'info', 'debug', 'fatal', 'trace'],
+        });
+
         this.logger = winston.createLogger({
             level: isProduction ? 'info' : 'debug',
             format: jsonFormat,
-            defaultMeta: { service: require('../../package.json').name }, // Add app name, version, etc.
+            defaultMeta: {
+                service: application_json.name,
+                version: application_json.version,
+                pid: process.pid,
+                hostname: os.hostname()
+            },
             transports: [
+                new SentryTransport(),
                 // Console (colored in dev, plain in prod)
                 new winston.transports.Console({
-                    format: isProduction ? jsonFormat : consoleFormat,
+                    format: process.env.PRETTY_CONSOLE ? consoleFormat : jsonFormat,
                 }),
 
                 // All logs - daily rotation
@@ -104,35 +117,31 @@ export class LogHandler {
 
     public info(message: string, meta?: Record<string, any>) {
         this.getLogger().info(message, meta);
-        Sentry.logger.info(message, meta);
     }
 
     public debug(message: string, meta?: Record<string, any>) {
         this.getLogger().debug(message, meta);
-        Sentry.logger.debug(message, meta);
     }
 
     public warn(message: string, meta?: Record<string, any>) {
         this.getLogger().warn(message, meta);
-        Sentry.logger.warn(message, meta);
     }
 
     public error(message: string | Error, meta?: Record<string, any>) {
         if (message instanceof Error) {
             this.getLogger().error(message.message, { ...meta, stack: message.stack });
-            Sentry.logger.error(message.message, { ...meta, stack: message.stack })
 
         } else {
             this.getLogger().error(message, meta);
-            Sentry.logger.error(message, meta)
         }
     }
 
     public fatal(message: string | Error, meta?: Record<string, any>) {
-        this.error(message, meta);
-        const messageStr = message instanceof Error ? message.message : message;
-        Sentry.logger.fatal(messageStr, meta);
-
+        if (message instanceof Error) {
+            this.getLogger().crit(message.message, { ...meta, stack: message.stack });
+        } else {
+            this.getLogger().crit(message, meta);
+        }
     }
 
     public trace(message: string, meta?: Record<string, any> | any[], attributes?: Record<string, any>) {
@@ -143,6 +152,42 @@ export class LogHandler {
             this.getLogger().debug(message, meta);
             Sentry.logger.trace(message, meta);
         }
+    }
+
+    public command(name: string, userId: string, meta?: Record<string, any>) {
+        this.getLogger().info(`Command: ${name}`, { userId, commandName: name, ...meta });
+    }
+
+    public slashCommand(interaction: ChatInputCommandInteraction, meta?: Record<string, any>) {
+        this.command(
+            interaction.commandName,
+            interaction.user.id,
+            {
+                guildId: interaction.guildId,
+                channelId: interaction.channelId,
+                interactionId: interaction.id,
+                options: interaction.options.data,
+                ...meta,
+            }
+        );
+    }
+
+    public event(eventName: string, meta?: Record<string, any>) {
+        this.getLogger().info(`Event: ${eventName}`, { eventName, ...meta });
+    }
+
+    public errorCommand(name: string, userId: string, error: Error, meta?: Record<string, any>) {
+        this.getLogger().error(`Command failed: ${name}`, {
+            userId,
+            commandName: name,
+            error: error.message,
+            stack: error.stack,
+            ...meta,
+        });
+    }
+
+    public commandExecuted() {
+        Sentry.metrics.count('command_executed', 1);
     }
 }
 

@@ -1,11 +1,11 @@
-import winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
-import * as Sentry from "@sentry/node"
-import "../utils/Sentry";
-import application_json from '../../package.json';
-import os from 'os';
 import { ChatInputCommandInteraction } from 'discord.js';
+import application_json from '../../package.json';
 import Transport from 'winston-transport';
+import * as Sentry from "@sentry/node"
+import winston from 'winston';
+import "../utils/Sentry";
+import os from 'os';
 
 const isProduction = process.env.NODE_ENV === 'production';
 

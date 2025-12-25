@@ -1,9 +1,9 @@
-import path from 'path';
-import { ExtendedClient } from './types/ExtendedClient';
-import "./utils/Sentry";
-import { logger } from './handlers/LogHandler';
-import 'dotenv/config'
 import registerProcessErrorHandlers from './utils/ProcessErrorHandlers';
+import { ExtendedClient } from './types/ExtendedClient';
+import { logger } from './handlers/LogHandler';
+import path from 'path';
+import "./utils/Sentry";
+import 'dotenv/config'
 
 const client: ExtendedClient = new ExtendedClient({
     command: path.join(__dirname, 'commands'),

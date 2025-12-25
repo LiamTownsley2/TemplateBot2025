@@ -1,20 +1,20 @@
 generator client {
   provider = "prisma-client"
-  output   = "../src/prisma/client/client"
+  output   = "../src/prisma/client"
 }
 
 datasource db {
   provider = "postgresql"
 }
-model users {
-  id             BigInt   @id
+model user {
+  id             String   @id
   username       String
   global_name    String?
   avatar         String?
   banner         String?
   accent_color   Int?
   created_at     DateTime @db.Timestamptz(6)
-
+  locale         String @default("en-GB")
   level         Int       @default(0)
   xp            BigInt    @default(0)
   balance       BigInt    @default(0)

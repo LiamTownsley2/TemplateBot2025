@@ -1,11 +1,9 @@
-// src/handlers/EventHandler.ts
-import { readdirSync } from 'fs';
-import path, { join } from 'path';
-import { ClientEvents } from 'discord.js';
-import { Event } from '../types/interfaces/Event';
 import { ExtendedClient } from '../types/ExtendedClient';
+import { Event } from '../types/interfaces/Event';
+import { ClientEvents } from 'discord.js';
 import { readdir } from 'fs/promises';
 import { logger } from './LogHandler';
+import path from 'path';
 
 export class EventHandler {
     private client: ExtendedClient;

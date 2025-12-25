@@ -1,0 +1,14 @@
+{
+    "test": "Test réussi! Vos arguments étaient: {{codeblock}}",
+    "ping": {
+        "request": "Ping en cours...",
+        "response": "Pong ! Latence: {{latency}}ms"
+    },
+    "locale": {
+        "current": "Votre locale actuelle est définie sur {{locale}}.",
+        "same_as_current": "Vous essayez de définir votre locale sur {{locale}}, mais c'est déjà votre locale actuelle.",
+        "updated": "Locale définie sur {{locale}}!"
+    },
+    "error_in_command": "Une erreur s'est produite dans la commande {{command_name}}:",
+    "error_occured": "Une erreur est survenue. Veuillez réessayer."
+}

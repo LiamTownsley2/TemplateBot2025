@@ -1,4 +1,4 @@
-import { Message, SlashCommandBuilder } from "discord.js";
+import { Message } from "discord.js";
 import { ExtendedClient } from "../../ExtendedClient";
 import { Command, CommandType } from "./Command";
 

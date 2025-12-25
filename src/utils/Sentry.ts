@@ -7,7 +7,7 @@ Sentry.init({
     integrations: [
         Sentry.consoleLoggingIntegration({ levels: ["log", "warn", "error"] }),
         Sentry.httpIntegration({
-            trackIncomingRequestsAsSessions: false, // default: true
+            trackIncomingRequestsAsSessions: false,
         }),
     ],
     enableLogs: true,

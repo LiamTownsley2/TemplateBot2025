@@ -1,0 +1,14 @@
+{
+    "test": "Test Success! Your arguments were: {{codeblock}}",
+    "ping": {
+        "request": "Pinging...",    
+        "response": "Pong! Latency: {{latency}}ms"
+    },
+    "locale": {
+        "current": "Your current locale is set to {{locale}}.",
+        "same_as_current": "You're trying to set your locale to {{locale}}, this is already your currently set locale.",
+        "updated": "Locale set to {{locale}}!"
+    },
+    "error_in_command": "There was an error in the {{command_name}} command:",
+    "error_occured": "An error occurred. Please try again."
+}

@@ -1,9 +1,11 @@
-import { Client, ClientEvents, Collection, GatewayIntentBits } from 'discord.js';
+import { Client, ClientEvents, Collection, GatewayIntentBits, User } from 'discord.js';
 import { Command } from './interfaces/Command/Command';
 import { Event } from './interfaces/Event';
 import { CommandHandler } from '../handlers/CommandHandler';
 import { EventHandler } from '../handlers/EventHandler';
 import { logger, LogHandler } from '../handlers/LogHandler';
+import { getI18nForUser } from '../utils/I18n';
+import { getUser } from '../utils/User';
 
 export class ExtendedClient extends Client {
   public commands: Collection<string, Command>;
@@ -33,5 +35,11 @@ export class ExtendedClient extends Client {
     this.on('error', (error) => logger.error('Client Error:', { error }));
     this.on('warn', (info) => logger.warn('Client Warning:', { info }));
     this.on('debug', (info) => logger.debug('Client Debug:', { info }));
+  }
+
+  public async getI18nForUser(user: User) {
+    const db_user = await getUser(user);
+    const t = getI18nForUser(db_user.locale).t;
+    return t;
   }
 }

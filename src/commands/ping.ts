@@ -2,7 +2,6 @@ import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { SlashCommand } from '../types/interfaces/Command/SlashCommand';
 import { ExtendedClient } from '../types/ExtendedClient';
 import { logger } from '../handlers/LogHandler';
-import { prisma } from '../utils/Prisma';
 
 export default class PingCommand extends SlashCommand {
     constructor(
@@ -15,20 +14,20 @@ export default class PingCommand extends SlashCommand {
     }
 
     async execute(interaction: ChatInputCommandInteraction): Promise<void> {
-        await prisma.users.create({
-            data: {
-                id: BigInt(interaction.user.id),
-                created_at: interaction.user.createdAt,
-                username: interaction.user.username,
-                accent_color: interaction.user.accentColor,
-                avatar: interaction.user.displayAvatarURL({ forceStatic: false, extension: 'png', size: 1024 }),
-                banner: interaction.user.bannerURL({ forceStatic: false, extension: 'png', size: 4096 }),
-                global_name: interaction.user.globalName,
-            }
-        })
+        const t = await this.client.getI18nForUser(interaction.user);
 
-        const latency = this.client.ws.ping;
-        await interaction.reply(`Pong! Latency: ${latency}ms`);
-        logger.slashCommand(interaction, { latency: this.client.ws.ping });
+        try {
+            const sent = await interaction.reply(t('ping.request'));
+            
+            const message_latency = sent.createdTimestamp - interaction.createdTimestamp;
+            const ws_latency = this.client.ws.ping;
+            const latency = (message_latency > ws_latency) ? message_latency : ws_latency;
+
+            await interaction.editReply(t('ping.response', { latency }));
+            logger.slashCommand(interaction, { latency });
+        } catch (error) {
+            console.error(error);
+            await interaction.reply(t('error_occured'));
+        }
     }
 }

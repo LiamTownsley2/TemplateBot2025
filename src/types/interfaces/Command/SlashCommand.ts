@@ -1,13 +1,15 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import { ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder, SlashCommandSubcommandsOnlyBuilder } from "discord.js";
 import { ExtendedClient } from "../../ExtendedClient";
 import { Command, CommandType } from "./Command";
 
-export abstract class SlashCommand extends Command {
-    public data: SlashCommandBuilder;
+type SlashCommandBuilders = SlashCommandBuilder | SlashCommandSubcommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder | SlashCommandSubcommandGroupBuilder
 
-    constructor(client: ExtendedClient, data: SlashCommandBuilder) {
+export abstract class SlashCommand extends Command {
+    public data: SlashCommandBuilders;
+
+    constructor(client: ExtendedClient, data: SlashCommandBuilders) {
         super(client, CommandType.Slash);
         this.data = data;
     }
     abstract execute(interaction: ChatInputCommandInteraction): Promise<void>;
-}
+} 

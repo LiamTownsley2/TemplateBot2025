@@ -1,12 +1,10 @@
-import { Collection } from 'discord.js';
-import { readdirSync } from 'fs';
-import { join } from 'path';
-import { ExtendedClient } from '../types/ExtendedClient';
-import { readdir } from 'fs/promises';
 import { Command, CommandType } from '../types/interfaces/Command/Command';
 import { SlashCommand } from '../types/interfaces/Command/SlashCommand';
 import { TextCommand } from '../types/interfaces/Command/TextCommand';
+import { ExtendedClient } from '../types/ExtendedClient';
+import { readdir } from 'fs/promises';
 import { logger } from './LogHandler';
+import { join } from 'path';
 
 export class CommandHandler {
     private readonly client: ExtendedClient;

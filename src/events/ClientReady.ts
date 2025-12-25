@@ -1,6 +1,7 @@
-import { Event } from '../types/interfaces/Event';
+import { CommandsDeployer } from '../utils/CommandsDeployer';
 import { ExtendedClient } from '../types/ExtendedClient';
-import { CommandsDeployer } from '../deploy/CommandsDeployer';
+import { Event } from '../types/interfaces/Event';
+import { initI18nInstances } from '../utils/I18n';
 import { logger } from '../handlers/LogHandler';
 
 export default class ReadyEvent extends Event<'clientReady'> {
@@ -12,6 +13,8 @@ export default class ReadyEvent extends Event<'clientReady'> {
     }
 
     public async handle(): Promise<void> {
+        await initI18nInstances();
+
         logger.event('clientReady', {
             signed_in_user: `${this.client.user?.id}`,
             guilds: this.client.guilds.cache.size

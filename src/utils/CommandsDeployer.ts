@@ -1,7 +1,6 @@
 import {
     REST,
     Routes,
-    Collection,
     RESTPostAPIApplicationCommandsJSONBody,
 } from 'discord.js';
 import { ExtendedClient } from '../types/ExtendedClient';
@@ -67,7 +66,7 @@ export class CommandsDeployer {
     }
 
     private getLocalCommandData(): RESTPostAPIApplicationCommandsJSONBody[] {
-        return this.client.commands.filter((command) => command.type == CommandType.Slash).map((command) => (command as SlashCommand).data.toJSON());
+        return this.client.commands.filter((command) => command.type == CommandType.Slash).map((command) => (command as SlashCommand).data.toJSON() as RESTPostAPIApplicationCommandsJSONBody);
     }
 
     private hasCommandsChanged(

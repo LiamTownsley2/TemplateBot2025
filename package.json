@@ -1,6 +1,6 @@
 {
   "name": "template-bot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "src/index.js",
   "scripts": {
     "start": "ts-node-dev --respawn --transpile-only src/index.ts",
@@ -30,6 +30,8 @@
     "@sentry/node": "^10.32.1",
     "discord.js": "^14.25.1",
     "dotenv": "^16.6.1",
+    "i18next": "^25.7.3",
+    "i18next-fs-backend": "^2.6.1",
     "winston": "^3.19.0",
     "winston-daily-rotate-file": "^5.0.0"
   },
@@ -39,6 +41,7 @@
   "devDependencies": {
     "@libsql/client": "^0.15.15",
     "@planetscale/database": "^1.19.0",
+    "@types/i18n": "^0.13.12",
     "@types/node": "^25.0.3",
     "@types/pg": "^8.16.0",
     "mysql2": "^3.16.0",

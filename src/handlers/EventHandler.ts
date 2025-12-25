@@ -34,7 +34,7 @@ export class EventHandler {
                 this.client.on(event.name, (...args) => event.handle(...args));
             }
 
-            logger.info(`\tℹ️ Loaded event.`, { name: event.name, once: event.once });
+            logger.info(`ℹ️ Loaded event.`, { name: event.name, once: event.once });
             loadedCount++;
         }
         logger.info('✅ Events Loaded:', { count: loadedCount });

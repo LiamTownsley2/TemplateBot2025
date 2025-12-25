@@ -43,7 +43,7 @@ export class CommandHandler {
             this.client.commands.set(commandName, command);
 
             loadedCount++;
-            logger.info(`\tℹ️ Loaded command.`, { name: commandName });
+            logger.info(`ℹ️ Loaded command.`, { name: commandName });
         }
         logger.info('✅ Commands Loaded:', { count: loadedCount });
     }

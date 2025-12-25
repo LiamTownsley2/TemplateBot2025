@@ -26,7 +26,7 @@ export class LogHandler {
             winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
             winston.format.printf(
                 ({ timestamp, level, message, ...meta }) =>
-                    `${timestamp} [${level}]: ${message} ${Object.keys(meta).length ? JSON.stringify(meta) : ''}`
+                    `${timestamp} [${level}]: ${message}\n${Object.keys(meta).length ? JSON.stringify(meta) : ''}`
             )
         );
 

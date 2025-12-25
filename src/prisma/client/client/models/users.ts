@@ -29,11 +29,17 @@ export type AggregateUsers = {
 export type UsersAvgAggregateOutputType = {
   id: number | null
   accent_color: number | null
+  level: number | null
+  xp: number | null
+  balance: number | null
 }
 
 export type UsersSumAggregateOutputType = {
   id: bigint | null
   accent_color: number | null
+  level: number | null
+  xp: bigint | null
+  balance: bigint | null
 }
 
 export type UsersMinAggregateOutputType = {
@@ -44,6 +50,12 @@ export type UsersMinAggregateOutputType = {
   banner: string | null
   accent_color: number | null
   created_at: Date | null
+  level: number | null
+  xp: bigint | null
+  balance: bigint | null
+  isPremium: boolean | null
+  bio: string | null
+  lastActive: Date | null
 }
 
 export type UsersMaxAggregateOutputType = {
@@ -54,6 +66,12 @@ export type UsersMaxAggregateOutputType = {
   banner: string | null
   accent_color: number | null
   created_at: Date | null
+  level: number | null
+  xp: bigint | null
+  balance: bigint | null
+  isPremium: boolean | null
+  bio: string | null
+  lastActive: Date | null
 }
 
 export type UsersCountAggregateOutputType = {
@@ -64,6 +82,13 @@ export type UsersCountAggregateOutputType = {
   banner: number
   accent_color: number
   created_at: number
+  level: number
+  xp: number
+  balance: number
+  isPremium: number
+  bio: number
+  settings: number
+  lastActive: number
   _all: number
 }
 
@@ -71,11 +96,17 @@ export type UsersCountAggregateOutputType = {
 export type UsersAvgAggregateInputType = {
   id?: true
   accent_color?: true
+  level?: true
+  xp?: true
+  balance?: true
 }
 
 export type UsersSumAggregateInputType = {
   id?: true
   accent_color?: true
+  level?: true
+  xp?: true
+  balance?: true
 }
 
 export type UsersMinAggregateInputType = {
@@ -86,6 +117,12 @@ export type UsersMinAggregateInputType = {
   banner?: true
   accent_color?: true
   created_at?: true
+  level?: true
+  xp?: true
+  balance?: true
+  isPremium?: true
+  bio?: true
+  lastActive?: true
 }
 
 export type UsersMaxAggregateInputType = {
@@ -96,6 +133,12 @@ export type UsersMaxAggregateInputType = {
   banner?: true
   accent_color?: true
   created_at?: true
+  level?: true
+  xp?: true
+  balance?: true
+  isPremium?: true
+  bio?: true
+  lastActive?: true
 }
 
 export type UsersCountAggregateInputType = {
@@ -106,6 +149,13 @@ export type UsersCountAggregateInputType = {
   banner?: true
   accent_color?: true
   created_at?: true
+  level?: true
+  xp?: true
+  balance?: true
+  isPremium?: true
+  bio?: true
+  settings?: true
+  lastActive?: true
   _all?: true
 }
 
@@ -203,6 +253,13 @@ export type UsersGroupByOutputType = {
   banner: string | null
   accent_color: number | null
   created_at: Date
+  level: number
+  xp: bigint
+  balance: bigint
+  isPremium: boolean
+  bio: string | null
+  settings: runtime.JsonValue | null
+  lastActive: Date | null
   _count: UsersCountAggregateOutputType | null
   _avg: UsersAvgAggregateOutputType | null
   _sum: UsersSumAggregateOutputType | null
@@ -236,6 +293,13 @@ export type usersWhereInput = {
   banner?: Prisma.StringNullableFilter<"users"> | string | null
   accent_color?: Prisma.IntNullableFilter<"users"> | number | null
   created_at?: Prisma.DateTimeFilter<"users"> | Date | string
+  level?: Prisma.IntFilter<"users"> | number
+  xp?: Prisma.BigIntFilter<"users"> | bigint | number
+  balance?: Prisma.BigIntFilter<"users"> | bigint | number
+  isPremium?: Prisma.BoolFilter<"users"> | boolean
+  bio?: Prisma.StringNullableFilter<"users"> | string | null
+  settings?: Prisma.JsonNullableFilter<"users">
+  lastActive?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
 }
 
 export type usersOrderByWithRelationInput = {
@@ -246,6 +310,13 @@ export type usersOrderByWithRelationInput = {
   banner?: Prisma.SortOrderInput | Prisma.SortOrder
   accent_color?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  level?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  settings?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastActive?: Prisma.SortOrderInput | Prisma.SortOrder
 }
 
 export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -259,6 +330,13 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   banner?: Prisma.StringNullableFilter<"users"> | string | null
   accent_color?: Prisma.IntNullableFilter<"users"> | number | null
   created_at?: Prisma.DateTimeFilter<"users"> | Date | string
+  level?: Prisma.IntFilter<"users"> | number
+  xp?: Prisma.BigIntFilter<"users"> | bigint | number
+  balance?: Prisma.BigIntFilter<"users"> | bigint | number
+  isPremium?: Prisma.BoolFilter<"users"> | boolean
+  bio?: Prisma.StringNullableFilter<"users"> | string | null
+  settings?: Prisma.JsonNullableFilter<"users">
+  lastActive?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
 }, "id">
 
 export type usersOrderByWithAggregationInput = {
@@ -269,6 +347,13 @@ export type usersOrderByWithAggregationInput = {
   banner?: Prisma.SortOrderInput | Prisma.SortOrder
   accent_color?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  level?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  settings?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastActive?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.usersCountOrderByAggregateInput
   _avg?: Prisma.usersAvgOrderByAggregateInput
   _max?: Prisma.usersMaxOrderByAggregateInput
@@ -287,6 +372,13 @@ export type usersScalarWhereWithAggregatesInput = {
   banner?: Prisma.StringNullableWithAggregatesFilter<"users"> | string | null
   accent_color?: Prisma.IntNullableWithAggregatesFilter<"users"> | number | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"users"> | Date | string
+  level?: Prisma.IntWithAggregatesFilter<"users"> | number
+  xp?: Prisma.BigIntWithAggregatesFilter<"users"> | bigint | number
+  balance?: Prisma.BigIntWithAggregatesFilter<"users"> | bigint | number
+  isPremium?: Prisma.BoolWithAggregatesFilter<"users"> | boolean
+  bio?: Prisma.StringNullableWithAggregatesFilter<"users"> | string | null
+  settings?: Prisma.JsonNullableWithAggregatesFilter<"users">
+  lastActive?: Prisma.DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
 }
 
 export type usersCreateInput = {
@@ -297,6 +389,13 @@ export type usersCreateInput = {
   banner?: string | null
   accent_color?: number | null
   created_at: Date | string
+  level?: number
+  xp?: bigint | number
+  balance?: bigint | number
+  isPremium?: boolean
+  bio?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastActive?: Date | string | null
 }
 
 export type usersUncheckedCreateInput = {
@@ -307,6 +406,13 @@ export type usersUncheckedCreateInput = {
   banner?: string | null
   accent_color?: number | null
   created_at: Date | string
+  level?: number
+  xp?: bigint | number
+  balance?: bigint | number
+  isPremium?: boolean
+  bio?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastActive?: Date | string | null
 }
 
 export type usersUpdateInput = {
@@ -317,6 +423,13 @@ export type usersUpdateInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accent_color?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  xp?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  balance?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastActive?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type usersUncheckedUpdateInput = {
@@ -327,6 +440,13 @@ export type usersUncheckedUpdateInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accent_color?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  xp?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  balance?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastActive?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type usersCreateManyInput = {
@@ -337,6 +457,13 @@ export type usersCreateManyInput = {
   banner?: string | null
   accent_color?: number | null
   created_at: Date | string
+  level?: number
+  xp?: bigint | number
+  balance?: bigint | number
+  isPremium?: boolean
+  bio?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastActive?: Date | string | null
 }
 
 export type usersUpdateManyMutationInput = {
@@ -347,6 +474,13 @@ export type usersUpdateManyMutationInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accent_color?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  xp?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  balance?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastActive?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type usersUncheckedUpdateManyInput = {
@@ -357,6 +491,13 @@ export type usersUncheckedUpdateManyInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accent_color?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  level?: Prisma.IntFieldUpdateOperationsInput | number
+  xp?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  balance?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  isPremium?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  lastActive?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type usersCountOrderByAggregateInput = {
@@ -367,11 +508,21 @@ export type usersCountOrderByAggregateInput = {
   banner?: Prisma.SortOrder
   accent_color?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  level?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  settings?: Prisma.SortOrder
+  lastActive?: Prisma.SortOrder
 }
 
 export type usersAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   accent_color?: Prisma.SortOrder
+  level?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
 }
 
 export type usersMaxOrderByAggregateInput = {
@@ -382,6 +533,12 @@ export type usersMaxOrderByAggregateInput = {
   banner?: Prisma.SortOrder
   accent_color?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  level?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  lastActive?: Prisma.SortOrder
 }
 
 export type usersMinOrderByAggregateInput = {
@@ -392,11 +549,20 @@ export type usersMinOrderByAggregateInput = {
   banner?: Prisma.SortOrder
   accent_color?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
+  level?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
+  isPremium?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  lastActive?: Prisma.SortOrder
 }
 
 export type usersSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   accent_color?: Prisma.SortOrder
+  level?: Prisma.SortOrder
+  xp?: Prisma.SortOrder
+  balance?: Prisma.SortOrder
 }
 
 export type BigIntFieldUpdateOperationsInput = {
@@ -427,6 +593,22 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 
 
 export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -437,6 +619,13 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   banner?: boolean
   accent_color?: boolean
   created_at?: boolean
+  level?: boolean
+  xp?: boolean
+  balance?: boolean
+  isPremium?: boolean
+  bio?: boolean
+  settings?: boolean
+  lastActive?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type usersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -447,6 +636,13 @@ export type usersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   banner?: boolean
   accent_color?: boolean
   created_at?: boolean
+  level?: boolean
+  xp?: boolean
+  balance?: boolean
+  isPremium?: boolean
+  bio?: boolean
+  settings?: boolean
+  lastActive?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type usersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -457,6 +653,13 @@ export type usersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   banner?: boolean
   accent_color?: boolean
   created_at?: boolean
+  level?: boolean
+  xp?: boolean
+  balance?: boolean
+  isPremium?: boolean
+  bio?: boolean
+  settings?: boolean
+  lastActive?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type usersSelectScalar = {
@@ -467,9 +670,16 @@ export type usersSelectScalar = {
   banner?: boolean
   accent_color?: boolean
   created_at?: boolean
+  level?: boolean
+  xp?: boolean
+  balance?: boolean
+  isPremium?: boolean
+  bio?: boolean
+  settings?: boolean
+  lastActive?: boolean
 }
 
-export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "global_name" | "avatar" | "banner" | "accent_color" | "created_at", ExtArgs["result"]["users"]>
+export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "global_name" | "avatar" | "banner" | "accent_color" | "created_at" | "level" | "xp" | "balance" | "isPremium" | "bio" | "settings" | "lastActive", ExtArgs["result"]["users"]>
 
 export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "users"
@@ -482,6 +692,13 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     banner: string | null
     accent_color: number | null
     created_at: Date
+    level: number
+    xp: bigint
+    balance: bigint
+    isPremium: boolean
+    bio: string | null
+    settings: runtime.JsonValue | null
+    lastActive: Date | null
   }, ExtArgs["result"]["users"]>
   composites: {}
 }
@@ -912,6 +1129,13 @@ export interface usersFieldRefs {
   readonly banner: Prisma.FieldRef<"users", 'String'>
   readonly accent_color: Prisma.FieldRef<"users", 'Int'>
   readonly created_at: Prisma.FieldRef<"users", 'DateTime'>
+  readonly level: Prisma.FieldRef<"users", 'Int'>
+  readonly xp: Prisma.FieldRef<"users", 'BigInt'>
+  readonly balance: Prisma.FieldRef<"users", 'BigInt'>
+  readonly isPremium: Prisma.FieldRef<"users", 'Boolean'>
+  readonly bio: Prisma.FieldRef<"users", 'String'>
+  readonly settings: Prisma.FieldRef<"users", 'Json'>
+  readonly lastActive: Prisma.FieldRef<"users", 'DateTime'>
 }
     
 

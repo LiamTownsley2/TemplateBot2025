@@ -4,7 +4,7 @@ import { Event } from './interfaces/Event';
 import { CommandHandler } from '../handlers/CommandHandler';
 import { EventHandler } from '../handlers/EventHandler';
 import { logger, LogHandler } from '../handlers/LogHandler';
-import { getI18nForUser } from '../utils/I18n';
+import { getI18n } from '../utils/I18n';
 import { getUser } from '../utils/User';
 
 export class ExtendedClient extends Client {
@@ -39,7 +39,7 @@ export class ExtendedClient extends Client {
 
   public async getI18nForUser(user: User) {
     const db_user = await getUser(user);
-    const t = getI18nForUser(db_user.locale).t;
+    const t = getI18n(db_user.locale).t;
     return t;
   }
 }

@@ -384,7 +384,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  user: 'user'
+  user: 'user',
+  guild: 'guild'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -400,7 +401,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user"
+    modelProps: "user" | "guild"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,6 +479,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    guild: {
+      payload: Prisma.$guildPayload<ExtArgs>
+      fields: Prisma.guildFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.guildFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.guildFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>
+        }
+        findFirst: {
+          args: Prisma.guildFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.guildFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>
+        }
+        findMany: {
+          args: Prisma.guildFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>[]
+        }
+        create: {
+          args: Prisma.guildCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>
+        }
+        createMany: {
+          args: Prisma.guildCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.guildCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>[]
+        }
+        delete: {
+          args: Prisma.guildDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>
+        }
+        update: {
+          args: Prisma.guildUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>
+        }
+        deleteMany: {
+          args: Prisma.guildDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.guildUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.guildUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>[]
+        }
+        upsert: {
+          args: Prisma.guildUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$guildPayload>
+        }
+        aggregate: {
+          args: Prisma.GuildAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuild>
+        }
+        groupBy: {
+          args: Prisma.guildGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuildGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.guildCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuildCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -536,6 +611,17 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const GuildScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  is_premium: 'is_premium',
+  created_at: 'created_at',
+  last_active: 'last_active'
+} as const
+
+export type GuildScalarFieldEnum = (typeof GuildScalarFieldEnum)[keyof typeof GuildScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -771,6 +857,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.userOmit
+  guild?: Prisma.guildOmit
 }
 
 /* Types for Logging */

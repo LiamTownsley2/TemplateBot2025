@@ -42,3 +42,8 @@ export { Prisma }
  * 
  */
 export type user = Prisma.userModel
+/**
+ * Model guild
+ * 
+ */
+export type guild = Prisma.guildModel

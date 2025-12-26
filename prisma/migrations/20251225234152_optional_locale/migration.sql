@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "guild" ALTER COLUMN "locale" DROP NOT NULL,
+ALTER COLUMN "locale" DROP DEFAULT;
+
+-- AlterTable
+ALTER TABLE "user" ALTER COLUMN "locale" DROP NOT NULL,
+ALTER COLUMN "locale" DROP DEFAULT;

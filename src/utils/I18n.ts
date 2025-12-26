@@ -34,7 +34,7 @@ export async function initI18nInstances() {
   }
 }
 
-export function getI18nForUser(userLocale: string | null | undefined): typeof i18next {
+export function getI18n(userLocale: string | null | undefined): typeof i18next {
   const _locale = userLocale?.split('-')[0];
   const validLocale = _locale && supportedLngs.includes(_locale) ? _locale : 'en';
   

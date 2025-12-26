@@ -255,7 +255,7 @@ export type UserGroupByOutputType = {
   banner: string | null
   accent_color: number | null
   created_at: Date
-  locale: string
+  locale: string | null
   level: number
   xp: bigint
   balance: bigint
@@ -296,7 +296,7 @@ export type userWhereInput = {
   banner?: Prisma.StringNullableFilter<"user"> | string | null
   accent_color?: Prisma.IntNullableFilter<"user"> | number | null
   created_at?: Prisma.DateTimeFilter<"user"> | Date | string
-  locale?: Prisma.StringFilter<"user"> | string
+  locale?: Prisma.StringNullableFilter<"user"> | string | null
   level?: Prisma.IntFilter<"user"> | number
   xp?: Prisma.BigIntFilter<"user"> | bigint | number
   balance?: Prisma.BigIntFilter<"user"> | bigint | number
@@ -314,7 +314,7 @@ export type userOrderByWithRelationInput = {
   banner?: Prisma.SortOrderInput | Prisma.SortOrder
   accent_color?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  locale?: Prisma.SortOrder
+  locale?: Prisma.SortOrderInput | Prisma.SortOrder
   level?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   balance?: Prisma.SortOrder
@@ -335,7 +335,7 @@ export type userWhereUniqueInput = Prisma.AtLeast<{
   banner?: Prisma.StringNullableFilter<"user"> | string | null
   accent_color?: Prisma.IntNullableFilter<"user"> | number | null
   created_at?: Prisma.DateTimeFilter<"user"> | Date | string
-  locale?: Prisma.StringFilter<"user"> | string
+  locale?: Prisma.StringNullableFilter<"user"> | string | null
   level?: Prisma.IntFilter<"user"> | number
   xp?: Prisma.BigIntFilter<"user"> | bigint | number
   balance?: Prisma.BigIntFilter<"user"> | bigint | number
@@ -353,7 +353,7 @@ export type userOrderByWithAggregationInput = {
   banner?: Prisma.SortOrderInput | Prisma.SortOrder
   accent_color?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
-  locale?: Prisma.SortOrder
+  locale?: Prisma.SortOrderInput | Prisma.SortOrder
   level?: Prisma.SortOrder
   xp?: Prisma.SortOrder
   balance?: Prisma.SortOrder
@@ -379,7 +379,7 @@ export type userScalarWhereWithAggregatesInput = {
   banner?: Prisma.StringNullableWithAggregatesFilter<"user"> | string | null
   accent_color?: Prisma.IntNullableWithAggregatesFilter<"user"> | number | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"user"> | Date | string
-  locale?: Prisma.StringWithAggregatesFilter<"user"> | string
+  locale?: Prisma.StringNullableWithAggregatesFilter<"user"> | string | null
   level?: Prisma.IntWithAggregatesFilter<"user"> | number
   xp?: Prisma.BigIntWithAggregatesFilter<"user"> | bigint | number
   balance?: Prisma.BigIntWithAggregatesFilter<"user"> | bigint | number
@@ -397,7 +397,7 @@ export type userCreateInput = {
   banner?: string | null
   accent_color?: number | null
   created_at: Date | string
-  locale?: string
+  locale?: string | null
   level?: number
   xp?: bigint | number
   balance?: bigint | number
@@ -415,7 +415,7 @@ export type userUncheckedCreateInput = {
   banner?: string | null
   accent_color?: number | null
   created_at: Date | string
-  locale?: string
+  locale?: string | null
   level?: number
   xp?: bigint | number
   balance?: bigint | number
@@ -433,7 +433,7 @@ export type userUpdateInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accent_color?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.IntFieldUpdateOperationsInput | number
   xp?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   balance?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
@@ -451,7 +451,7 @@ export type userUncheckedUpdateInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accent_color?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.IntFieldUpdateOperationsInput | number
   xp?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   balance?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
@@ -469,7 +469,7 @@ export type userCreateManyInput = {
   banner?: string | null
   accent_color?: number | null
   created_at: Date | string
-  locale?: string
+  locale?: string | null
   level?: number
   xp?: bigint | number
   balance?: bigint | number
@@ -487,7 +487,7 @@ export type userUpdateManyMutationInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accent_color?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.IntFieldUpdateOperationsInput | number
   xp?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   balance?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
@@ -505,7 +505,7 @@ export type userUncheckedUpdateManyInput = {
   banner?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accent_color?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  locale?: Prisma.StringFieldUpdateOperationsInput | string
+  locale?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   level?: Prisma.IntFieldUpdateOperationsInput | number
   xp?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   balance?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
@@ -712,7 +712,7 @@ export type $userPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     banner: string | null
     accent_color: number | null
     created_at: Date
-    locale: string
+    locale: string | null
     level: number
     xp: bigint
     balance: bigint
